@@ -10,11 +10,16 @@
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.6.1",
+    "eslint": "^5.10.0",
+    "eslint-plugin-react": "^7.11.1",
     "koa": "^2.6.2",
     "koa-body": "^4.0.4",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.1.4",
     "web3": "^1.0.0-beta.36"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1"
   }
 }
