@@ -17,7 +17,8 @@ router.post("/newaccount", newAccountController.newAccount)
 
 router.get("/transaction", transactionController.transactionHtml)
 
-router.post("/privateunlock", accountController.unlockAccountWithPrivate)
 
+router.post("/privateunlock", accountController.unlockAccountWithPrivate)
+router.post("/keystoreunlock", accountController.unlockAccountWithKeystore)
 
 module.exports = router

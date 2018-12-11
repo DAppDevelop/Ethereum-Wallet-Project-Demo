@@ -1,5 +1,6 @@
 let web3 = require("../utils/myUtils").getweb3()
 let {success, fail} = require("../utils/myUtils")
+let fs = require("fs")
 
 async function getAccountBalance(address) {
     let balance = await web3.eth.getBalance(address)
@@ -41,6 +42,22 @@ module.exports = {
         let balance = await getAccountBalance(account.address)
         console.log(balance)
         //３．将账户信息返回给前端
+        ctx.body = await setResponseData(account)
+    },
+
+    unlockAccountWithKeystore: async (ctx) => {
+        //1.　获取前端传递的数据，包括keystore、密码
+        let password = ctx.request.body.password
+        console.log(password)
+        let keystore = ctx.request.files.file
+        console.log(keystore)
+        //2.读取缓存文件中ｋｅｙｓｔｏｒｅ的数据
+        let keystoreData = fs.readFileSync(keystore.path, "utf8")
+        console.log(keystoreData)
+        //3. 通过keystore和密码解锁账户
+        let account = web3.eth.accounts.decrypt(JSON.parse(keystoreData), password)
+        console.log(account)
+         //４．将账户信息返回给前端
         ctx.body = await setResponseData(account)
     }
 }
