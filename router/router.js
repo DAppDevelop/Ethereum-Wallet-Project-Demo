@@ -16,6 +16,7 @@ router.get("/newaccount", newAccountController.newAccountHtml)
 router.post("/newaccount", newAccountController.newAccount)
 
 router.get("/transaction", transactionController.transactionHtml)
+router.post("/sendtransaction", transactionController.sendTransaction)
 
 
 router.post("/privateunlock", accountController.unlockAccountWithPrivate)

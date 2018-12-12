@@ -11,7 +11,7 @@ async function getAccountBalance(address) {
 async function setResponseData(account) {
     //获取账户余额
     let balance = await getAccountBalance(account.address)
-    console.log(balance)
+    // console.log(balance)
 
     //获取代币的数据
     // let myBalance = await myContract.methods.balanceOf(account.address).call()
@@ -23,7 +23,7 @@ async function setResponseData(account) {
     return success({
         balance: balance,
         address: account.address,
-        // privatekey: account.privateKey,
+        privatekey: account.privateKey,
         // tokenbalance: myBalance,
         // symbol: symbol
     })
@@ -37,10 +37,6 @@ module.exports = {
         //2.通过私钥解锁账户
         let account = web3.eth.accounts.privateKeyToAccount(privatekey)
         console.log(account)
-         //３．将账户信息返回给前端
-        //  ctx.body = await setResponseData(account)
-        let balance = await getAccountBalance(account.address)
-        console.log(balance)
         //３．将账户信息返回给前端
         ctx.body = await setResponseData(account)
     },

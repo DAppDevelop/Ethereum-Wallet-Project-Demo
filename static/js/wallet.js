@@ -78,4 +78,51 @@ $(document).ready(function(){
             $("#unlock-account-privatekey").show()
         }
     })
+
+    $("#send-transaction-form").validate({
+        rules:{
+            toaddress:{
+                required: true,
+            },
+            number:{
+                required:true,
+            },
+        },
+        messages:{
+            toaddress:{
+                required:"请输入对方地址",
+            },
+            number:{
+                required:"请输入转账数额"
+            },
+        },
+        submitHandler: function(form)
+        {
+            var urlStr
+            let tokenType = $("#send-transaction-token-type").val()
+            if (tokenType == 1) {
+                urlStr = "/sendtransaction"
+            } else {
+                urlStr = "/sendtoken"
+            }
+             
+            alert("urlStr:"+urlStr)
+            $(form).ajaxSubmit({
+                url:urlStr,
+                type:"post",
+                dataType:"json",
+                success:function (res, status) {
+                    console.log(status + JSON.stringify(res))
+                    if (res.code == 0) {
+                        $("#transaction-complate-hash").text(res.data.transactionHash)
+                        $("#transaction-complate-blockhash").text(res.data.blockHash)
+                        $("#transaction-complate").show()
+                    }
+                },
+                error:function (res, status) {
+                    console.log(status + JSON.stringify(res))
+                }
+            });
+        }
+    })
 })
