@@ -6,6 +6,10 @@ module.exports = {
         return ctx.render("transaction.html")
     },
 
+    checkTransactionHtml: async (ctx)=>{
+        await ctx.render("checktransaction.html")
+    },
+
     sendTransaction: async (ctx) => {
         let { fromaddress, toaddress, number, privatekey } = ctx.request.body
 
@@ -58,9 +62,14 @@ module.exports = {
         })
 
         ctx.body = responseData
+    },
+
+    checkTransaction: async (ctx) => {
+        console.log("transactionHash")
+        let transactionHash = ctx.request.body.transactionHash
+        
+        console.log(transactionHash);
+        let data = await web3.eth.getTransaction(transactionHash)
+        ctx.body = success(data)
     }
-
-
-
-    
 }

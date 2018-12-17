@@ -68,6 +68,17 @@ function configAccountInfo(data) {
     $("#send-transaction-token-symbol").text(data.symbol)
 }
 
+function checkTransaciton() {
+    let transactionHash = $("#transaction-info-hash").val()
+    // console.log(transactionHash)
+    $.post("/checktransaction", `transactionHash=${transactionHash}`, function (res, status) {
+        console.log(status + JSON.stringify(res))
+        if (res.code == 0) {
+            $("#transaction-info").text(JSON.stringify(res.data, null, 4))
+        } 
+    })
+}
+
 $(document).ready(function(){
     $("input[name=unlocktype]").change(function(){
         if(this.value == 1) {
